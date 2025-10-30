@@ -104,15 +104,31 @@ def register():
 
         hashed_pw = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, hashed_pw))
-        conn.commit()
-        conn.close()
+        try:
+            conn = sqlite3.connect(DB_PATH, timeout=10)
+            cursor = conn.cursor()
 
-        return redirect("/login")
+            cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
+            existing_user = cursor.fetchone()
+            if existing_user:
+                conn.close()
+                return "❌ Username already exists. Please choose another."
+
+            cursor.execute(
+                "INSERT INTO users (username, password) VALUES (?, ?)",
+                (username, hashed_pw)
+            )
+            conn.commit()
+            return redirect("/login")
+
+        except Exception as e:
+            return f"❌ Registration error: {str(e)}"
+
+        finally:
+            conn.close()
 
     return render_template("register.html")
+
 
 
 @app.route("/login", methods=["GET", "POST"])
