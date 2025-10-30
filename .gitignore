@@ -1,0 +1,26 @@
+# ⛔ Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# ⛔ Ignore SQLite database file
+*.db
+
+# ⛔ Ignore local environment configuration
+.env
+
+# ⛔ Ignore virtual environment folder
+venv/
+
+# ⛔ Ignore deployment logs and system files
+*.log
+.DS_Store
+
+# ⛔ Ignore VS Code workspace settings
+.vscode/
+
+# ⛔ Ignore compiled static files (if using build tools later)
+dist/
+build/
+
+# ⛔ Ignore Jupyter notebook checkpoints (if ever used)
+.ipynb_checkpoints/

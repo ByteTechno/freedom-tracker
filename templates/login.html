@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="auth-card p-4">
+            <h2 class="text-center mb-4 text-primary fw-bold">Welcome back</h2>
+
+            {% if error %}
+            <div class="alert alert-danger text-center">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label" for="username">User name</label>
+                    <input type="text" class="form-control" name="username" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" class="form-control" name="password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Log in</button>
+            </form>
+
+            <p class="text-center mt-3 text-muted">
+                No account?
+                <a href="/register" class="text-primary fw-semibold">Click to register</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

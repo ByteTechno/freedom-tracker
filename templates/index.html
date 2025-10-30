@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="card shadow-sm p-4" style="width: 100%; max-width: 800px; background-color: #ffffffee; border: none; border-radius: 1rem;">
+
+        <!-- Header -->
+        <div class="text-center mb-4">
+            <h1 class="fw-bold text-dark">🕊 Freedom Tracker</h1>
+            <p class="text-muted">A checklist is the first step in controlling chaos.</p>
+        </div>
+
+        <form method="post" class="input-group mb-4">
+            <input type="text" name="task" class="form-control rounded-start-pill" placeholder="Write down one thing you want to accomplish..." required>
+            <button class="btn btn-outline-success rounded-end-pill">Add</button>
+        </form>
+
+        {% if tasks %}
+        <ul class="list-group list-group-flush">
+            {% for task in tasks %}
+            <li class="list-group-item d-flex justify-content-between align-items-center border-bottom">
+                <form method="post" action="/toggle" class="me-2">
+                    <input type="hidden" name="id" value="{{ task[0] }}">
+                    <button class="btn btn-sm rounded-circle 
+                        {% if task[3] %}btn-success{% else %}btn-outline-secondary{% endif %}">
+                        {% if task[3] %}✅{% else %}🚫{% endif %}
+                    </button>
+                </form>
+
+                <span class="flex-fill mx-2 {% if task[3] %}text-muted text-decoration-line-through{% endif %}">
+                    {{ task[1] }}
+                </span>
+
+                <form method="post" action="/edit" class="d-flex align-items-center me-2">
+                    <input type="hidden" name="id" value="{{ task[0] }}">
+                    <input type="text" name="new_content" class="form-control form-control-sm me-1" placeholder="Modify the content..." style="width: 180px;">
+                    <button class="btn btn-sm btn-outline-warning">Modify</button>
+                </form>
+
+                <form method="post" action="/delete">
+                    <input type="hidden" name="id" value="{{ task[0] }}">
+                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="text-center text-muted">You haven't added any tasks yet. Take the first step and start taking control of your life.</p>
+        {% endif %}
+
+        <div class="text-center mt-5">
+            <form method="get" action="/logout">
+                <button class="btn btn-outline-secondary">Log out</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
