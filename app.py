@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect, session
 import sqlite3
 import bcrypt
+import os
 app = Flask(__name__)
-DB_PATH = "data/tracker.db"
-
 app.secret_key = "super_secret_key_A free life"
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, "data", "tracker.db")
 
 def get_tasks(username):
     conn = sqlite3.connect(DB_PATH)
