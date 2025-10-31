@@ -95,23 +95,25 @@ def edit():
     update_task(task_id, new_content)
     return redirect("/")
 
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "").strip()
+
+        if not username or not password:
+            return "❌ Username and password cannot be empty."
 
         hashed_pw = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+        conn = None  
 
         try:
             conn = sqlite3.connect(DB_PATH, timeout=10)
             cursor = conn.cursor()
 
             cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
-            existing_user = cursor.fetchone()
-            if existing_user:
-                conn.close()
+            if cursor.fetchone():
                 return "❌ Username already exists. Please choose another."
 
             cursor.execute(
@@ -125,10 +127,10 @@ def register():
             return f"❌ Registration error: {str(e)}"
 
         finally:
-            conn.close()
+            if conn:  
+                conn.close()
 
     return render_template("register.html")
-
 
 
 @app.route("/login", methods=["GET", "POST"])
