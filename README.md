@@ -1,9 +1,9 @@
-# 🕊 Freedom Tracker — Discipline Builds Freedom
+# 🌊 TaskFlow — Efficiency in Motion
 
 A clean, personal task management web app built for people who want to live with intention — not distraction.
 
 This is not just another to-do list.  
-**Freedom Tracker** is a minimal yet powerful system for tracking what truly matters, staying accountable, and taking back control of your time.
+**TaskFlow** is a minimal yet powerful system for tracking what truly matters, staying accountable, and taking back control of your time.
 
 ---
 
@@ -41,7 +41,7 @@ This is not just another to-do list.
 
 ## 🚀 Live Demo
 
-🖥️ **Try it here** → [Freedom Tracker on Render](https://freedom-tracker.onrender.com)
+🖥️ **Live Demo** → [TaskFlow on Render](https://freedom-tracker.onrender.com)
 
 > ⚠️ Hosted on Render free tier — it may take up to 30 seconds to cold start.
 
@@ -60,8 +60,8 @@ This is not just another to-do list.
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/your-username/freedom-tracker.git
-cd freedom-tracker
+git clone https://github.com/your-username/taskflow.git
+cd taskflow
 
 # 2. (Optional) Create virtual env
 python -m venv venv
