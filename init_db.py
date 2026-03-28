@@ -2,9 +2,13 @@
 import sqlite3
 import os
 
-os.makedirs("data", exist_ok=True)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_DIR = os.path.join(BASE_DIR, "data")
+DB_PATH = os.path.join(DB_DIR, "TaskFlow.db")
 
-conn = sqlite3.connect("data/tracker.db")
+os.makedirs(DB_DIR, exist_ok=True)
+
+conn = sqlite3.connect(DB_PATH)
 cursor = conn.cursor()
 
 cursor.execute("""
